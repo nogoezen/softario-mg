@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useTheme } from '@/lib/ThemeContext';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Pencil, Rss, Moon, Sun, Save } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 export function SettingsComponent() {
   const [cmsName, setCmsName] = useState('Mon CMS');
@@ -13,7 +16,6 @@ export function SettingsComponent() {
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    // Charger les paramètres sauvegardés
     const savedCmsName = localStorage.getItem('cmsName');
     const savedRssUrl = localStorage.getItem('rssUrl');
     if (savedCmsName) setCmsName(savedCmsName);
@@ -23,47 +25,68 @@ export function SettingsComponent() {
   const handleSaveSettings = () => {
     localStorage.setItem('cmsName', cmsName);
     localStorage.setItem('rssUrl', rssUrl);
-    // Ici, vous pouvez ajouter une logique supplémentaire pour sauvegarder les paramètres
-    alert('Paramètres sauvegardés');
+    toast.success('Paramètres sauvegardés avec succès');
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Paramètres</h2>
-      
-      <div className="space-y-2">
-        <Label htmlFor="cmsName" className="text-sm font-medium text-gray-700 dark:text-gray-200">Nom du CMS</Label>
-        <Input
-          id="cmsName"
-          type="text"
-          value={cmsName}
-          onChange={(e) => setCmsName(e.target.value)}
-          className="w-full"
-        />
-      </div>
+    <Card className="max-w-2xl mx-auto">
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold flex items-center gap-2">
+          <Pencil size={24} />
+          Paramètres
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div className="space-y-2">
+          <Label htmlFor="cmsName" className="text-sm font-medium flex items-center gap-2">
+            <Pencil size={16} />
+            Nom du CMS
+          </Label>
+          <Input
+            id="cmsName"
+            type="text"
+            value={cmsName}
+            onChange={(e) => setCmsName(e.target.value)}
+            className="w-full"
+          />
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="rssUrl" className="text-sm font-medium text-gray-700 dark:text-gray-200">URL du flux RSS</Label>
-        <Input
-          id="rssUrl"
-          type="url"
-          value={rssUrl}
-          onChange={(e) => setRssUrl(e.target.value)}
-          className="w-full"
-          placeholder="https://example.com/rss"
-        />
-      </div>
+        <div className="space-y-2">
+          <Label htmlFor="rssUrl" className="text-sm font-medium flex items-center gap-2">
+            <Rss size={16} />
+            URL du flux RSS
+          </Label>
+          <Input
+            id="rssUrl"
+            type="url"
+            value={rssUrl}
+            onChange={(e) => setRssUrl(e.target.value)}
+            className="w-full"
+            placeholder="https://example.com/rss"
+          />
+        </div>
 
-      <div className="flex items-center justify-between">
-        <Label htmlFor="theme-mode" className="text-sm font-medium text-gray-700 dark:text-gray-200">Mode sombre</Label>
-        <Switch
-          id="theme-mode"
-          checked={theme === 'dark'}
-          onCheckedChange={toggleTheme}
-        />
-      </div>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="theme-mode" className="text-sm font-medium flex items-center gap-2">
+            {theme === 'dark' ? <Moon size={16} /> : <Sun size={16} />}
+            Mode {theme === 'dark' ? 'sombre' : 'clair'}
+          </Label>
+          <Switch
+            id="theme-mode"
+            checked={theme === 'dark'}
+            onCheckedChange={toggleTheme}
+          />
+        </div>
 
-      <Button type="button" className="w-full" onClick={handleSaveSettings}>Sauvegarder les paramètres</Button>
-    </div>
+        <Button 
+          type="button" 
+          className="w-full mt-6" 
+          onClick={handleSaveSettings}
+        >
+          <Save size={18} className="mr-2" />
+          Sauvegarder les paramètres
+        </Button>
+      </CardContent>
+    </Card>
   );
 }

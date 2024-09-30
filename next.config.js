@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['www.gravatar.com'],
+    domains: ['example.com'], // Ajoutez ici les domaines externes si nécessaire
   },
 }
 

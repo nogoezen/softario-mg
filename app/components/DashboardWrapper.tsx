@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { LogoutButton } from './LogoutButton';
 import { UserProfile } from './UserProfile';
 import { SettingsComponent } from './SettingsComponent';
-import { RssFeed } from './RssFeed';
-import { Menu, X, User, Settings, BarChart, Home, Rss } from 'lucide-react';
+import { ProductList } from './ProductList';
+import { Menu, X, User, Settings, ShoppingBag, Home } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 export function DashboardWrapper() {
@@ -22,8 +22,8 @@ export function DashboardWrapper() {
           <Button variant="ghost" className="w-full justify-start" onClick={() => setCurrentView('dashboard')}>
             <Home className="mr-2 h-4 w-4" /> Accueil
           </Button>
-          <Button variant="ghost" className="w-full justify-start" onClick={() => setCurrentView('rss')}>
-            <Rss className="mr-2 h-4 w-4" /> Flux RSS
+          <Button variant="ghost" className="w-full justify-start" onClick={() => setCurrentView('products')}>
+            <ShoppingBag className="mr-2 h-4 w-4" /> Produits
           </Button>
           <Button variant="ghost" className="w-full justify-start" onClick={() => setCurrentView('profile')}>
             <User className="mr-2 h-4 w-4" /> Profil
@@ -52,11 +52,11 @@ export function DashboardWrapper() {
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
                 <h2 className="text-2xl font-semibold mb-4">Bienvenue sur votre tableau de bord !</h2>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Ici, vous pouvez voir vos statistiques, gérer votre profil et accéder à tous les outils dont vous avez besoin.
+                  Ici, vous pouvez gérer vos produits, voir vos commandes et accéder à tous les outils dont vous avez besoin.
                 </p>
               </div>
             )}
-            {currentView === 'rss' && <RssFeed />}
+            {currentView === 'products' && <ProductList />}
             {currentView === 'profile' && <UserProfile />}
             {currentView === 'settings' && <SettingsComponent />}
           </div>

@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     const items = feed.items.map(item => ({
       title: item.title,
       link: item.link,
-      description: item.contentSnippet || item.description,
+      description: item.contentSnippet || item.content,
       pubDate: item.pubDate,
       enclosure: item.enclosure,
     }));

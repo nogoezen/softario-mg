@@ -9,21 +9,26 @@ import { useTheme } from '@/lib/ThemeContext';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pencil, Rss, Moon, Sun, Save } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 export function SettingsComponent() {
   const [cmsName, setCmsName] = useState('Mon CMS');
+  const [logoUrl, setLogoUrl] = useState('/default-logo.png');
   const [rssUrl, setRssUrl] = useState('');
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const savedCmsName = localStorage.getItem('cmsName');
+    const savedLogoUrl = localStorage.getItem('logoUrl');
     const savedRssUrl = localStorage.getItem('rssUrl');
     if (savedCmsName) setCmsName(savedCmsName);
+    if (savedLogoUrl) setLogoUrl(savedLogoUrl);
     if (savedRssUrl) setRssUrl(savedRssUrl);
   }, []);
 
   const handleSaveSettings = () => {
     localStorage.setItem('cmsName', cmsName);
+    localStorage.setItem('logoUrl', logoUrl);
     localStorage.setItem('rssUrl', rssUrl);
     toast.success('Paramètres sauvegardés avec succès');
   };
@@ -48,6 +53,21 @@ export function SettingsComponent() {
             value={cmsName}
             onChange={(e) => setCmsName(e.target.value)}
             className="w-full"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="logoUrl" className="text-sm font-medium flex items-center gap-2">
+            <Image size={16} />
+            URL du logo
+          </Label>
+          <Input
+            id="logoUrl"
+            type="url"
+            value={logoUrl}
+            onChange={(e) => setLogoUrl(e.target.value)}
+            className="w-full"
+            placeholder="https://example.com/logo.png"
           />
         </div>
 

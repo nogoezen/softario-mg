@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,38 +9,61 @@ import { useTheme } from '@/lib/ThemeContext';
 
 export function SettingsComponent() {
   const [cmsName, setCmsName] = useState('Mon CMS');
+  const [rssUrl, setRssUrl] = useState('');
   const { theme, toggleTheme } = useTheme();
 
-  const handleCmsNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCmsName(e.target.value);
-    // Ici, vous pouvez ajouter la logique pour sauvegarder le nom du CMS
-    // Par exemple, en l'envoyant à une API ou en le stockant dans localStorage
+  useEffect(() => {
+    // Charger les paramètres sauvegardés
+    const savedCmsName = localStorage.getItem('cmsName');
+    const savedRssUrl = localStorage.getItem('rssUrl');
+    if (savedCmsName) setCmsName(savedCmsName);
+    if (savedRssUrl) setRssUrl(savedRssUrl);
+  }, []);
+
+  const handleSaveSettings = () => {
+    localStorage.setItem('cmsName', cmsName);
+    localStorage.setItem('rssUrl', rssUrl);
+    // Ici, vous pouvez ajouter une logique supplémentaire pour sauvegarder les paramètres
+    alert('Paramètres sauvegardés');
   };
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold">Paramètres</h2>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Paramètres</h2>
       
-      <div>
-        <Label htmlFor="cmsName">Nom du CMS</Label>
+      <div className="space-y-2">
+        <Label htmlFor="cmsName" className="text-sm font-medium text-gray-700 dark:text-gray-200">Nom du CMS</Label>
         <Input
           id="cmsName"
           type="text"
           value={cmsName}
-          onChange={handleCmsNameChange}
+          onChange={(e) => setCmsName(e.target.value)}
+          className="w-full"
         />
       </div>
 
-      <div className="flex items-center space-x-2">
+      <div className="space-y-2">
+        <Label htmlFor="rssUrl" className="text-sm font-medium text-gray-700 dark:text-gray-200">URL du flux RSS</Label>
+        <Input
+          id="rssUrl"
+          type="url"
+          value={rssUrl}
+          onChange={(e) => setRssUrl(e.target.value)}
+          className="w-full"
+          placeholder="https://example.com/rss"
+        />
+      </div>
+
+      <div className="flex items-center justify-between">
+        <Label htmlFor="theme-mode" className="text-sm font-medium text-gray-700 dark:text-gray-200">Mode sombre</Label>
         <Switch
           id="theme-mode"
           checked={theme === 'dark'}
           onCheckedChange={toggleTheme}
         />
-        <Label htmlFor="theme-mode">Mode sombre</Label>
       </div>
 
-      <Button type="button">Sauvegarder les paramètres</Button>
+      <Button type="button" className="w-full" onClick={handleSaveSettings}>Sauvegarder les paramètres</Button>
     </div>
   );
 }

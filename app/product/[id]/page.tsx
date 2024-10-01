@@ -1,5 +1,5 @@
-import { ProductItemDetail } from '../../components/front/ProductItemDetail';
-import { Navbar } from '../../components/front/Navbar';
+import { ProductItemDetail } from '../../../components/front/ProductItemDetail';
+import { Navbar } from '../../../components/front/Navbar';
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   return (

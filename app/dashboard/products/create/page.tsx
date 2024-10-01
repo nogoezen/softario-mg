@@ -1,4 +1,4 @@
-import { ProductCRUD } from '@/app/components/dashboard/ProductCRUD';
+import { ProductCRUD } from '@/components/dashboard/ProductCRUD';
 
 export default function CreateProductPage() {
   return (

@@ -1,5 +1,5 @@
-import { CartPage } from '../components/front/CartPage';
-import { Navbar } from '../components/front/Navbar';
+import { CartPage } from '../../components/front/CartPage';
+import { Navbar } from '../../components/front/Navbar';
 
 export default function Cart() {
   return (

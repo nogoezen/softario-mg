@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/lib/ThemeContext";
-import { CartProvider } from "@/lib/CartContext";
+import { CartProvider } from '@/lib/CartContext';
 import { Toaster } from 'react-hot-toast';
 import "./globals.css";
+import { UserProvider } from '@/contexts/UserContext';
 
 export const metadata: Metadata = {
   title: "Mon CMS",
@@ -17,12 +18,14 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <ThemeProvider>
-          <CartProvider>
-            {children}
-            <Toaster position="bottom-right" />
-          </CartProvider>
-        </ThemeProvider>
+        <UserProvider>
+          <ThemeProvider>
+            <CartProvider>
+              {children}
+              <Toaster position="bottom-right" />
+            </CartProvider>
+          </ThemeProvider>
+        </UserProvider>
       </body>
     </html>
   );

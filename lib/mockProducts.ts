@@ -94,4 +94,18 @@ export const mockProducts: Product[] = [
   },
 ];
 
-export const bestDeals: Product[] = mockProducts.slice(0, 5);
+export interface Comment {
+  id: string;
+  productId: string;
+  userId: string;
+  text: string;
+  rating: number;
+  createdAt: string;
+  isApproved: boolean;
+}
+
+export const mockComments: Comment[] = [
+  // Gardez quelques commentaires d'exemple
+];
+
+export const bestDeals: Product[] = mockProducts.slice(0, 5); // ou toute autre logique pour sélectionner les meilleures offres

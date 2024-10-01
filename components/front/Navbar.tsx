@@ -1,15 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ShoppingCart, User } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import { useCart } from '@/lib/CartContext';
 
-export function Navbar() {
+export function NavbarComponent() {
   const [cmsName, setCmsName] = useState('Mon CMS');
-  const [logoUrl, setLogoUrl] = useState('/default-logo.png'); // Assurez-vous d'avoir une image par défaut
+  const [logoUrl, setLogoUrl] = useState('/default-logo.png');
   const { cart } = useCart();
 
   useEffect(() => {

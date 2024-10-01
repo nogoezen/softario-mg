@@ -5,6 +5,10 @@ import { LayoutGrid } from "@/components/ui/layout-grid";
 import Image from 'next/image';
 
 export function BestDeals({ products }: { products: Product[] }) {
+  if (!products || products.length === 0) {
+    return <div>Aucune offre disponible pour le moment.</div>;
+  }
+
   return (
     <div className="py-12">
       <h2 className="text-3xl font-bold text-center mb-8">Meilleures offres</h2>

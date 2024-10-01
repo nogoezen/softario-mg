@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { ShoppingCart, User } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
+import { useCart } from '@/lib/CartContext';
 
 export function Navbar() {
   const [cmsName, setCmsName] = useState('Mon CMS');
   const [logoUrl, setLogoUrl] = useState('/default-logo.png'); // Assurez-vous d'avoir une image par défaut
+  const { cart } = useCart();
 
   useEffect(() => {
     const savedCmsName = localStorage.getItem('cmsName');
@@ -16,6 +18,8 @@ export function Navbar() {
     if (savedCmsName) setCmsName(savedCmsName);
     if (savedLogoUrl) setLogoUrl(savedLogoUrl);
   }, []);
+
+  const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <nav className="bg-white shadow-md">
@@ -27,8 +31,13 @@ export function Navbar() {
           </div>
           <div className="flex items-center">
             <Link href="/cart" passHref>
-              <Button variant="ghost" className="mr-2">
+              <Button variant="ghost" className="mr-2 relative">
                 <ShoppingCart className="h-5 w-5" />
+                {cartItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                    {cartItemsCount}
+                  </span>
+                )}
               </Button>
             </Link>
             <Link href="/login" passHref>

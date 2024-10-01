@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/lib/ThemeContext";
+import { CartProvider } from "@/lib/CartContext";
 import { Toaster } from 'react-hot-toast';
 import "./globals.css";
 
@@ -17,8 +18,10 @@ export default function RootLayout({
     <html lang="fr">
       <body>
         <ThemeProvider>
-          {children}
-          <Toaster position="bottom-right" />
+          <CartProvider>
+            {children}
+            <Toaster position="bottom-right" />
+          </CartProvider>
         </ThemeProvider>
       </body>
     </html>

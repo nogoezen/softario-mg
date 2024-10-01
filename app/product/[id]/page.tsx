@@ -1,9 +1,13 @@
-import { ProductDetail } from '@/components/ProductDetail';
+import { ProductItemDetail } from '../../components/ProductItemDetail';
+import { Navbar } from '../../components/Navbar';
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   return (
-    <div className="container mx-auto p-4">
-      <ProductDetail productId={params.id} />
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+      <Navbar />
+      <main className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <ProductItemDetail productId={params.id} />
+      </main>
     </div>
   );
 }

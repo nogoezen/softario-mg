@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Vos autres configurations existantes
+  reactStrictMode: true,
+  // ...
+
   images: {
-    domains: ['example.com'], // Ajoutez ici les domaines externes si nécessaire
+    domains: ['www.gravatar.com'],
   },
 }
 

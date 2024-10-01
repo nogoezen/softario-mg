@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Mail, Lock } from 'lucide-react';
+import { AppwriteException } from 'appwrite';
 
 export function LoginForm() {
   const [email, setEmail] = useState('');
@@ -20,9 +21,13 @@ export function LoginForm() {
     try {
       await account.createEmailPasswordSession(email, password);
       router.push('/dashboard');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Erreur de connexion:', error);
-      setError(error.message || 'Une erreur est survenue lors de la connexion');
+      if (error instanceof AppwriteException) {
+        setError(error.message);
+      } else {
+        setError('Une erreur est survenue lors de la connexion. Veuillez réessayer.');
+      }
     }
   };
 

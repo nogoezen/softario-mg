@@ -1,14 +1,27 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { mockProducts, Product } from '@/lib/mockProducts';
+import { Product } from '@/lib/';
 import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
+import { databases } from '@/lib/appwrite';
 
 export function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    setProducts(mockProducts);
+    const fetchProducts = async () => {
+      try {
+        const response = await databases.listDocuments(
+          'your-database-id',
+          'your-collection-id'
+        );
+        setProducts(response.documents as Product[]);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   return (
